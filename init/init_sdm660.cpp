@@ -117,3 +117,22 @@ void vendor_load_persist_properties()
     }
   }
 }
+void vendor_load_properties()
+{
+   std::string product = GetProperty("ro.product.vendor.device", "");	
+   if (product.find("whyred") != std::string::npos)
+   {
+  	std::string region = GetProperty("ro.boot.hwc", "");
+
+    if (region.find("CN") != std::string::npos || region.find("Global") != std::string::npos || region.find("GLOBAL") != std::string::npos)
+	{
+        property_override_dual("ro.product.model", "ro.vendor.product.model", "Redmi Note 5");
+        property_override("persist.vendor.camera.exif.model", "Redmi Note 5");
+	}
+	else
+	{
+        property_override_dual("ro.product.model", "ro.vendor.product.model", "Redmi Note 5 Pro");
+        property_override("persist.vendor.camera.exif.model", "Redmi Note 5 Pro");
+	}
+  }
+}
